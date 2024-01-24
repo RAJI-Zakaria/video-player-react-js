@@ -2,7 +2,7 @@ services:
 
     webapp:
       container_name: webapp
-      build: ../redeemers
+      build: ./
       security_opt:
        - no-new-privileges:true
       restart: always
