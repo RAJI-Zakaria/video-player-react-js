@@ -1,9 +1,25 @@
+body{
+  background-position: center;
+  /* background: url('/apple.jpg'); */
+  background:url('bg.svg');
+  background-size: cover;
+}
 #root {
-  max-width: 1280px;
+  width: 1500px;
   margin: 0 auto;
-  padding: 2rem;
   text-align: center;
 }
+
+
+.glass{
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0));
+  backdrop-filter: blur(12.3px);
+  -webkit-backdrop-filter: blur(12.3px);
+  border-radius: 20px;
+  border:1px solid rgba(255, 255, 255, 0.18);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.77);
+}
+
 
 .logo {
   height: 6em;
@@ -40,3 +56,13 @@
 .read-the-docs {
   color: #888;
 }
+
+
+
+
+
+
+
+
+
+
