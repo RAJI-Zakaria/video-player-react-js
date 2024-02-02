@@ -1,14 +1,15 @@
 import React, { useEffect, useRef } from 'react';
+import { convertSecondsToTime } from '../../utils/convertSecondsToTime';
 
 interface TimelineMarker {
-  time: number;
+  pos: number;
   title: string;
 }
 
 interface TimelineMarkersListProps {
   markers: TimelineMarker[];
   currentMarker: number;
-  onMarkerClick: (time: number) => void;
+  onMarkerClick: (pos: number) => void;
 }
 
 const TimelineMarkersList: React.FC<TimelineMarkersListProps> = ({ markers, currentMarker, onMarkerClick }) => {
@@ -31,9 +32,9 @@ const TimelineMarkersList: React.FC<TimelineMarkersListProps> = ({ markers, curr
             ref={index === currentMarker ? activeMarkerRef : null}
             className={`list-group-item ${index === currentMarker ? 'active' : ''}`}
             style={{ cursor: 'pointer' }}
-            onClick={() => onMarkerClick(marker.time)} 
+            onClick={() => onMarkerClick(marker.pos)} 
           >
-            {`${marker.title} at ${marker.time} seconds`}
+            {`${marker.title} at ${convertSecondsToTime(marker.pos)}`}
           </li>
         ))}
       </ul>

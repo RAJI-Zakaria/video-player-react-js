@@ -38,7 +38,7 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({
         <label htmlFor='ranger' className="me-2 text-white">
           <b>Volume</b>
         </label>
-        <input id='ranger' type='range' min='0' max='100' step='10' value={volume} onChange={onVolumeChange} />
+        <input id='ranger' type='range' min='0' max='100' step='10' value={volume?volume:0} onChange={onVolumeChange} />
       </div>
   );
 };

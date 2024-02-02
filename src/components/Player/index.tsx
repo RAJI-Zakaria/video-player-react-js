@@ -1,3 +1,27 @@
+
+
+
+
+
+
+
+// Zak : This file will be deleted very soon
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 import React, { useEffect, useRef, useState } from 'react';
 import { Col, Container, OverlayTrigger, Popover, Row } from 'react-bootstrap';
 
@@ -216,7 +240,7 @@ const Player: React.FC = () => {
           <label className="me-2">
             <b>Volume</b>
           </label>
-          <input type='range' min='0' max='100' step='10' value={volumeOfVideo} onChange={volumeBar} />
+          <input type='range' min='0' max='100' step='10' value={volumeOfVideo} onChange={volumeBar}/>
         </Col>
       </Row>
 

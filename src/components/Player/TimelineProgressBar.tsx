@@ -2,14 +2,14 @@ import React from 'react';
 import { OverlayTrigger, Popover } from 'react-bootstrap';
 
 interface TimelineProgressBarProps {
-  calculateProgress: () => number;
+  calculateProgress: () => number ;
   duration: number;
   currentDuration: number;
-  timelineMarkers: Array<{ time: number; title: string }>;
+  timelineMarkers: Array<{ pos: number; title: string }>;
   onScrubStart: (e: React.MouseEvent<HTMLProgressElement>) => void;
   onScrubMove: (e: React.MouseEvent<HTMLProgressElement>) => void;
   onScrubEnd: () => void;
-  onMarkerClick: (time: number) => void;
+  onMarkerClick: (pos: number) => void;
 
 }
 
@@ -23,7 +23,7 @@ const TimelineProgressBar: React.FC<TimelineProgressBarProps> = ({
   onScrubEnd,
   onMarkerClick
 }) => {
-  return (
+  return ( 
     <div style={{ position: 'relative' }}>
       <progress
         className='w-100'
@@ -37,7 +37,6 @@ const TimelineProgressBar: React.FC<TimelineProgressBarProps> = ({
         }}
 
       />
-
       {/* Display timeline Markers on hover */}
       {timelineMarkers.map((marker, index) => (
         <OverlayTrigger
@@ -50,14 +49,14 @@ const TimelineProgressBar: React.FC<TimelineProgressBarProps> = ({
             style={{
               position: 'absolute',
               top: '0',
-              left: `${(marker.time / duration) * 100}%`,
+              left: `${(marker.pos / duration) * 100}%`,
               transform: 'translateX(-50%)',
               width: '5px',
               height: '20px',
               backgroundColor: '#ababab',
               cursor: 'pointer',
             }}
-            onClick={() => onMarkerClick(marker.time)} 
+            onClick={() => onMarkerClick(marker.pos)} 
           />
         </OverlayTrigger>
       ))}

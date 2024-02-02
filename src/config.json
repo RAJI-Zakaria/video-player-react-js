@@ -1,0 +1,11 @@
+{
+    "development": {
+        "API_URL": "https://imr3-react.herokuapp.com"
+    },
+    "production": {
+        "API_URL": "https://imr3-react.herokuapp.com"
+    },
+    "test": {
+        "API_URL": "https://imr3-react.herokuapp.com"
+    }
+  }
