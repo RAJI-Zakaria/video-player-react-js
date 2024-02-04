@@ -9,5 +9,5 @@ services:
       volumes:
         - ./src:/usr/src/app/src # putting the components in a volume so that the changes are reflected in the container
       ports:
-       - 3030:3030 # HOST:CONTAINER the port of the webapp is set in the vite.config.js and exposed in the dockerfile as well so if you want to change the port you need just to change the host port and not the container (guest) port
+       - 3030:3030 # HOST:CONTAINER the port of the webapp is set in the vite.config.js and exposed in the dockerfile as well
       tty: true
