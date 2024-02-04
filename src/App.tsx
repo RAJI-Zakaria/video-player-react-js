@@ -1,40 +1,41 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
-import { Container, Col, Row } from 'react-bootstrap';
+// App.tsx
 
+import { useState, useEffect } from 'react';
+import axios from 'axios';
+import MapParent from "./components/MapParent.tsx";
 
-function App() {
-  const [count, setCount] = useState(0)
-
-  return (
-    <Container>
-      <Row>
-      <Col sm={6}>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </Col>
-      <Col sm={6}>
-      <h1>Redeemers Salute</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <br/>
-        <br/>
-        <button onClick={() => setCount(() => 0)}>
-          Reset
-        </button>
-      </div>
-      </Col>
-      </Row>
-    </Container>
-  )
+interface Waypoint {
+    lat: string;
+    lng: string;
+    label: string;
+    timestamp: string;
 }
 
-export default App
+const App = () => {
+    const [waypoints, setWaypoints] = useState<Waypoint[]>([]);
+    // const [currentTimestamp, setCurrentTimestamp] = useState<number>(45); // Replace with the actual current timestamp from the movie
+
+    useEffect(() => {
+        // Fetch waypoints data
+        const fetchData = async () => {
+            try {
+                const { data } = await axios.get('https://imr3-react.herokuapp.com/backend');
+                if (data?.Waypoints) {
+                    setWaypoints(data.Waypoints);
+                }
+            } catch (err) {
+                console.error(err);
+            }
+        };
+
+        fetchData();
+    }, []);
+
+    return (
+        <div>
+            <MapParent waypointsProp={waypoints} />
+        </div>
+    );
+};
+
+export default App;
