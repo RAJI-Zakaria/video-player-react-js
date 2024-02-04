@@ -1,11 +1,7 @@
-// ParentComponent.tsx
-
 import { useState, useEffect } from 'react';
 import LocationMarker from './LocationMarker.tsx';
 import {Container} from "react-bootstrap";
 import {MapContainer, TileLayer} from "react-leaflet";
-
-
 
 interface Waypoint {
     lat: string;
@@ -13,33 +9,39 @@ interface Waypoint {
     label: string;
     timestamp?: string;
 }
-
 interface MapParentProps {
-    waypointsProp: Waypoint[]
+    waypointsProp: Waypoint[],
+    currentDurationOfVideo: number
 }
 
-const initialPosition : Waypoint = { lat: "48.7313", lng: "-3.4621", label: "Lannion" };
+const initialPosition : Waypoint = { lat: "48.7313", lng: "-3.4621", label: "Lannion", timestamp: "0" };
 
-const MapParent = ({waypointsProp}:MapParentProps) => {
+const MapParent = ({waypointsProp,currentDurationOfVideo}:MapParentProps) => {
+
     const [waypoints, setWaypoints] = useState<Waypoint[]>(waypointsProp);
     const [currentWaypoint, setCurrentWaypoint] = useState<Waypoint>(initialPosition);
 
     useEffect(() => {
-        console.log("Received waypointsProp:", waypointsProp);
-        setWaypoints(waypointsProp);
-        console.log("waypoints:", waypoints);
-        // loop through waypointsProp and set the currentWaypoint and change wait 3 seconds
-        // every 3 seconds, change the currentWaypoint from the waypoints
-        let i = 0;
-        const interval = setInterval(() => {
-            setCurrentWaypoint(waypoints[i]);
-            i = (i + 1) % waypoints.length;
-        }, 3000);
 
-        return () => clearInterval(interval);
+        const currentWaypoint = waypoints // Sort the waypoints by timestamp and find the closest waypoint to the current time
+            .sort((a, b) => parseInt(a.timestamp) - parseInt(b.timestamp))
+            .reduce((closest, waypoint) => {
 
+                const waypointTimestamp = parseInt(waypoint.timestamp);
+                const closestTimestamp = parseInt(closest.timestamp);
 
-    }, [waypointsProp]);
+                if (waypointTimestamp <= currentDurationOfVideo && waypointTimestamp >= closestTimestamp) {
+                    return waypoint;
+                }
+
+                return closest;
+            }, initialPosition); // Initialize with the default waypoint
+
+        if (currentWaypoint) {
+            setCurrentWaypoint(currentWaypoint);
+        }
+
+    }, [currentDurationOfVideo, waypoints]);
 
     return (
         <div>

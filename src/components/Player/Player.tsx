@@ -8,6 +8,7 @@ import TimelineProgressBar from './TimelineProgressBar';
 import {getFilm} from '../../api/film'
 
 import LoadingAnimation from '../animation/LoadingAnimation';
+import MapParent from "./MapParent.tsx";
 
 interface Film {
   file_url: string;
@@ -19,11 +20,19 @@ interface Chapter {
   title: string 
 }
 
+interface Waypoint {
+    lat: string;
+    lng: string;
+    label: string;
+    timestamp?: string;
+}
+
 const Player: React.FC = () => {
   const [loading, setLoading] = useState(true);
 
   const [film, setFilm] = useState<Film>({});
-  
+
+  const [waypoints, setWaypoints] = useState<Waypoint[]>([]);
   const [volumeOfVideo, setVolumeOfVideo] = useState(100);
   const [durationOfVideo, setDurationOfVideo] = useState(0);
   const [currentDurationOfVideo, setCurrentDurationOfVideo] = useState(0);
@@ -47,6 +56,7 @@ const Player: React.FC = () => {
         if(film.ok){
           setFilm(film.data.Film)
           setTimelineMarkers(film.data.Chapters)
+          setWaypoints(film.data.Waypoints)
         }
       } catch (error) {
         console.error('Error fetching Film :', error);
@@ -257,6 +267,13 @@ const Player: React.FC = () => {
             <TimelineMarkersList markers={timelineMarkers} currentMarker={currentMarker} onMarkerClick={handleMarkerClick} />
             </div>
         </Col>
+
+        <Col sm={12} md={12}>
+          <div className=" glass m-2 m-md-0 p-4">
+            <MapParent waypointsProp={waypoints} currentDurationOfVideo={currentDurationOfVideo} />
+          </div>
+        </Col>
+
       </Row>
 
      
