@@ -13,6 +13,8 @@ import Tags from '../Tags/Tags';
 
 import {Film, Chapter, Keywords} from '../Types'
 
+import MsgcomposerAndChatRoom from "../MessageComposerandChatRoom.jsx";
+
 interface Waypoint {
     lat: string;
     lng: string;
@@ -266,6 +268,14 @@ const Player: React.FC = () => {
             <MapParent waypointsProp={waypoints} currentDurationOfVideo={currentDurationOfVideo} />
           </div>
         </Col>
+
+        <Col sm={12} md={12}>
+          <div className=" glass m-2 m-md-0 p-4">
+            <MsgcomposerAndChatRoom />
+          </div>
+        </Col>
+
+
 
       </Row>
 
