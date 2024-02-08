@@ -25,3 +25,21 @@ export interface Film {
     synopsis_url: string;
     title: string;
   }
+
+export interface Waypoint {
+  lat: string;
+  lng: string;
+  label: string;
+  timestamp: string;
+}
+
+export interface MapParentProps {
+  waypointsProp: Waypoint[],
+  currentDurationOfVideo: number
+}
+
+export interface WaypointChild {
+  lat: number;
+  lng: number;
+  label: string;
+}

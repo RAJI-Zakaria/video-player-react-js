@@ -2,23 +2,13 @@ import { useState, useEffect } from 'react';
 import LocationMarker from './LocationMarker.tsx';
 import {Container} from "react-bootstrap";
 import {MapContainer, TileLayer} from "react-leaflet";
-
-interface Waypoint {
-    lat: string;
-    lng: string;
-    label: string;
-    timestamp?: string;
-}
-interface MapParentProps {
-    waypointsProp: Waypoint[],
-    currentDurationOfVideo: number
-}
+import {Waypoint,MapParentProps} from "../Types.tsx";
 
 const initialPosition : Waypoint = { lat: "48.7313", lng: "-3.4621", label: "Lannion", timestamp: "0" };
 
 const MapParent = ({waypointsProp,currentDurationOfVideo}:MapParentProps) => {
 
-    const [waypoints, setWaypoints] = useState<Waypoint[]>(waypointsProp);
+    const waypoints = waypointsProp
     const [currentWaypoint, setCurrentWaypoint] = useState<Waypoint>(initialPosition);
 
     useEffect(() => {

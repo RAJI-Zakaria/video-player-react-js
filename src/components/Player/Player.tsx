@@ -8,19 +8,12 @@ import TimelineProgressBar from './TimelineProgressBar';
 import {getFilm} from '../../api/film'
 
 import LoadingAnimation from '../animation/LoadingAnimation';
-import MapParent from "./MapParent.tsx";
+import MapParent from "../Map/MapParent.tsx";
 import Tags from '../Tags/Tags';
 
-import {Film, Chapter, Keywords} from '../Types'
+import {Film, Chapter, Keywords, Waypoint} from '../Types'
 
 import MsgcomposerAndChatRoom from "../MessageComposerandChatRoom.jsx";
-
-interface Waypoint {
-    lat: string;
-    lng: string;
-    label: string;
-    timestamp?: string;
-}
 
 const Player: React.FC = () => {
   const [loading, setLoading] = useState(true);
