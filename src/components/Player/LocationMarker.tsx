@@ -18,7 +18,7 @@ function LocationMarker({ lat, lng, label }: Waypoint) {
     useEffect(() => {
         setPosition({ lat, lng });
         setMarkerLabel(label);
-        map.flyTo({ lat, lng }, map.getZoom());
+        map.flyTo({ lat, lng },13 /*map.getZoom()*/);
     }, [label, lat, lng, map]);
 
     return (

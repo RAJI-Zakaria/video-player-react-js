@@ -22,9 +22,6 @@ interface Waypoint {
 
 const Player: React.FC = () => {
   const [loading, setLoading] = useState(true);
-
-  const [film, setFilm] = useState<Film>({});
-
   const [waypoints, setWaypoints] = useState<Waypoint[]>([]);
   const [film, setFilm] = useState<Film>();
   const [keywords, setKeywords] = useState<Array<Keywords>>([]);
