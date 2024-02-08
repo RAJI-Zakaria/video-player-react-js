@@ -8,35 +8,20 @@ import TimelineProgressBar from './TimelineProgressBar';
 import {getFilm} from '../../api/film'
 
 import LoadingAnimation from '../animation/LoadingAnimation';
+import Tags from '../Tags/Tags';
 
-interface Film {
-  file_url: string;
-  synopsis_url: string;
-  title: string;
-}
-interface Chapter { 
-  pos: number; 
-  title: string 
-}
+import {Film, Chapter, Keywords} from '../Types'
 
 const Player: React.FC = () => {
   const [loading, setLoading] = useState(true);
 
-  const [film, setFilm] = useState<Film>({});
-  
+  const [film, setFilm] = useState<Film>();
+  const [keywords, setKeywords] = useState<Array<Keywords>>([]); 
   const [volumeOfVideo, setVolumeOfVideo] = useState(100);
   const [durationOfVideo, setDurationOfVideo] = useState(0);
   const [currentDurationOfVideo, setCurrentDurationOfVideo] = useState(0);
   const [currentMarker, setCurrentMarker] = useState(0);
-  const [timelineMarkers, setTimelineMarkers] = useState<Array<Chapter>>([
-    //OLD ===> 
-    // { pos: 1, title: 'Introduction' },
-    // { pos: 1.5, title: 'Key Moment' },
-    // { time: 2.37, title: 'Highlight' },
-    // { time: 2.75, title: 'Transition' },
-    // { time: 4, title: 'Action Sequence' },
-    // { time: 8, title: 'Conclusion' },
-  ]);
+  const [timelineMarkers, setTimelineMarkers] = useState<Array<Chapter>>([]);
   
   useEffect(()=>{
     const fetchFilm = async () => {
@@ -47,6 +32,9 @@ const Player: React.FC = () => {
         if(film.ok){
           setFilm(film.data.Film)
           setTimelineMarkers(film.data.Chapters)
+          setKeywords(film.data.Keywords)
+        }else{
+          alert('Error fetching Film')
         }
       } catch (error) {
         console.error('Error fetching Film :', error);
@@ -68,14 +56,9 @@ const Player: React.FC = () => {
     //   videoPlay()
     //   videoStop()
     // }, 1000);
-
-
-
-
-
   }, [])
   
-//useeffect for durationOfVideo
+//useEffect for durationOfVideo
   useEffect(() => {
     getDurationOfVideo(); // this will activate the markers behavior auto selection when the video is loaded and then click on a marker
   }
@@ -94,6 +77,7 @@ const Player: React.FC = () => {
           clearVideoInterval();
         }
 
+        //INFO : i am using the following ode inside 2 components to display the markers on the timeline and show markers list
         const activeMarker = timelineMarkers.find(
           (marker, index) =>
           videoRef.current && videoRef.current.currentTime >= marker.pos &&
@@ -101,9 +85,8 @@ const Player: React.FC = () => {
         );
 
         if (activeMarker) {
-          console.log(`Reached marker at ${activeMarker.pos} seconds: ${activeMarker.title}`);
+          // console.log(`Reached marker at ${activeMarker.pos} seconds: ${activeMarker.title}`);
           const markerIndex = timelineMarkers.indexOf(activeMarker);
-          console.log("_____" + markerIndex);
           setCurrentMarker(markerIndex);
         }
       }
@@ -120,10 +103,10 @@ const Player: React.FC = () => {
 
   const volumeBar = (e: React.ChangeEvent<HTMLInputElement>) => {
     const volumeValue = parseFloat(e.target.value) / 100;
-    setVolumeOfVideo(e.target.value);
+    setVolumeOfVideo(parseFloat(e.target.value));
 
     if (videoRef.current) {
-      videoRef.current.volume = volumeValue.toFixed(1);
+      videoRef.current.volume = parseFloat(volumeValue.toFixed(1));
     }
   };
 
@@ -206,6 +189,8 @@ const Player: React.FC = () => {
       videoRef.current.play(); // Optionally start playing after setting the pos
     }
   };
+
+
   return (
     loading && <div className='glass'><LoadingAnimation/></div>||
     <Container className='m-0 p-0'>
@@ -213,12 +198,17 @@ const Player: React.FC = () => {
 
         <Col sm={12} md={8}>
           <div className='glass m-2 m-md-0 p-4'>
-            <h2 className='text-white'>{film && film.title}</h2>
-            <VideoPlayer
-              videoSource={film ? film.file_url : 'https://www.w3schools.com/html/mov_bbb.mp4'}
-              videoRef={videoRef}
-              setDurationOfVideo={setDurationOfVideo}
-            />
+
+            {film && 
+            <>
+              <h2 className='text-white'>{film.title}</h2>
+              <VideoPlayer
+                film={film}
+                videoRef={videoRef}
+                setDurationOfVideo={setDurationOfVideo}
+              />
+            </>
+          }
 
             {timelineMarkers && 
             
@@ -233,6 +223,7 @@ const Player: React.FC = () => {
               onMarkerClick={handleMarkerClick}
             />
             }
+
             
 
             <VideoControls
@@ -245,6 +236,9 @@ const Player: React.FC = () => {
               volume={volumeOfVideo}
               videoRef={videoRef}
             />
+
+            <Tags keywords={keywords} currentTimelinePos={currentDurationOfVideo} />
+
           </div>
           
 
@@ -255,7 +249,7 @@ const Player: React.FC = () => {
         <Col sm={12} md={4}>
           <div className='glass m-2 m-md-0 p-4'>
             <TimelineMarkersList markers={timelineMarkers} currentMarker={currentMarker} onMarkerClick={handleMarkerClick} />
-            </div>
+            </div> 
         </Col>
       </Row>
 

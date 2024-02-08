@@ -1,13 +1,10 @@
 import React, { useEffect, useRef } from 'react';
+import './TimeLineMarkerList.css';
 import { convertSecondsToTime } from '../../utils/convertSecondsToTime';
-
-interface TimelineMarker {
-  pos: number;
-  title: string;
-}
+import { Chapter } from '../Types';
 
 interface TimelineMarkersListProps {
-  markers: TimelineMarker[];
+  markers: Chapter[];
   currentMarker: number;
   onMarkerClick: (pos: number) => void;
 }

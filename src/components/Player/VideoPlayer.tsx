@@ -1,14 +1,18 @@
 import { useEffect, useState } from "react";
 import LoadingAnimation from "../animation/LoadingAnimation";
+import {film} from '../Types'
+
 
 interface VideoPlayerProps {
-  videoSource: string;
+  film: film;
   videoRef: React.RefObject<HTMLVideoElement>;
   setDurationOfVideo: React.Dispatch<React.SetStateAction<number>>;
 }
 
+
+
 const VideoPlayer: React.FC<VideoPlayerProps> = ({
-  videoSource,
+  film,
   videoRef,
   setDurationOfVideo
 }) => {
@@ -19,7 +23,8 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({
       console.log('Video is loaded and ready to play');
       setLoading(false);
       if (videoRef.current) {
-        setDurationOfVideo(videoRef.current.duration); // this is the solution for the markers to be set on the right place on the timeline "default display"
+        // -----> this is the solution for the markers to be set on the right place on the timeline "default display"
+        setDurationOfVideo(videoRef.current.duration); 
       }
     };
     const videoElement = videoRef.current;
@@ -30,7 +35,7 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({
         videoElement.removeEventListener('loadeddata', handleLoadedData); 
       };
     }
-  }, [videoRef, videoSource, setDurationOfVideo]);
+  }, [videoRef, film, setDurationOfVideo]);
 
 
   
@@ -38,12 +43,13 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({
  
 
   return (
-      videoSource &&
+    film &&
      (
       <div>
         {loading && <LoadingAnimation/>}
-        <video className='w-100 rounded' ref={videoRef} preload='auto'>
-          <source src={videoSource} type='video/mp4'></source>
+        <video className='w-100 rounded' ref={videoRef}>
+          <source src={film.file_url} type='video/mp4'></source>
+          Your browser does not support the video tag.
         </video>
 
       </div>
