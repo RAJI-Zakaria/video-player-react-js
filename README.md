@@ -1,3 +1,21 @@
+# Rich Interface Project
+First of all, we would like to express our enthusiasm as we embark on a React journey, inspired by `M. Marc Poppleton's` insightful teachings. This project is dedicated to creating a dynamic React app featuring a video player with interactive chapters, keywords, a map, and a live comment section. 
+
+Just as M. Marc Poppleton encouraged exploration and innovation, this endeavor seeks to encapsulate the essence of learning through hands-on experience and interactive elements.
+
+# Authors
+- Abir 
+- Ferhat
+- Zakaria
+
+# Table of Contents
+- [Rich Interface Project](#rich-interface-project)
+- [Authors](#authors)
+- [Table of Contents](#table-of-contents)
+- [React + TypeScript + Vite](#react--typescript--vite)
+  - [Expanding the ESLint configuration](#expanding-the-eslint-configuration)
+
+
 # React + TypeScript + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.

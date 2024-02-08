@@ -29,12 +29,12 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({
   }, [volume]);
 
   return (
-      <div className="d-flex flex-wrap align-items-center">
-        <button className="me-2" onClick={onPlay}>Play</button>
-        <button className="me-2" onClick={onStop}>Stop</button>
+      <div className="d-flex flex-wrap align-items-center mt-3">
+        <button className="me-2 py-1" onClick={onPlay}>Play</button>
+        <button className="me-2 py-1" onClick={onStop}>Stop</button>
         {/* <button className="me-2" onClick={onReplay}>Replay</button> */}
-        <button className="me-2" onClick={onMute}>Mute</button>
-        <button className="me-2" onClick={onUnmute}>Unmute</button>
+        <button className="me-2 py-1" onClick={onMute}>Mute</button>
+        <button className="me-2 py-1" onClick={onUnmute}>Unmute</button>
         <label htmlFor='ranger' className="me-2 text-white">
           <b>Volume</b>
         </label>

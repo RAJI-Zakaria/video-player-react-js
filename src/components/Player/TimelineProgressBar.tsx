@@ -1,11 +1,12 @@
 import React from 'react';
+import './TimelineProgressBar.css';
 import { OverlayTrigger, Popover } from 'react-bootstrap';
-
+import {Chapter} from '../Types'
 interface TimelineProgressBarProps {
   calculateProgress: () => number ;
   duration: number;
   currentDuration: number;
-  timelineMarkers: Array<{ pos: number; title: string }>;
+  timelineMarkers: Array<Chapter>;
   onScrubStart: (e: React.MouseEvent<HTMLProgressElement>) => void;
   onScrubMove: (e: React.MouseEvent<HTMLProgressElement>) => void;
   onScrubEnd: () => void;
