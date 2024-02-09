@@ -1,0 +1,4 @@
+.chat-room-history {
+    height: 200px;
+    overflow: scroll;
+}

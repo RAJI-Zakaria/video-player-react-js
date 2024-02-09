@@ -13,6 +13,9 @@ import Tags from '../Tags/Tags.tsx';
 import {Film, Chapter, Keywords, Waypoint} from '../Types.tsx'
 import MapParent from "../Map/MapParent.tsx";
 
+import ChatRoom from '../chatroom';
+
+
 const Player: React.FC = () => {
   const [loading, setLoading] = useState(true);
   const [waypoints, setWaypoints] = useState<Waypoint[]>([]);
@@ -207,6 +210,36 @@ const Player: React.FC = () => {
     }
   }
  
+
+
+  const handleTimeClick = (time: string) => {
+    console.log(time);
+    if (videoRef.current) {
+      let totalSeconds = 0;
+  
+      // Split the time string into parts based on ":"
+      const timeParts = time.split(":");
+  
+      // Parse hours, minutes, and seconds based on the length of timeParts array
+      if (timeParts.length === 2) {
+        // Format: "HH:mm"
+        const [hours, minutes] = timeParts.map(Number);
+        totalSeconds = hours * 3600 + minutes * 60;
+      } else if (timeParts.length === 3) {
+        // Format: "HH:mm:ss"
+        const [hours, minutes, seconds] = timeParts.map(Number);
+        totalSeconds = hours * 3600 + minutes * 60 + seconds;
+      }
+  
+      // Check if the calculated totalSeconds is within the video duration
+      if (totalSeconds <= durationOfVideo) {
+        // Set the video's current time
+        videoRef.current.currentTime = totalSeconds;
+      } else {
+        alert("Time exceeds video duration or the video has not been loaded yet.");
+      }
+    }
+  };
   
   
   return (
@@ -267,7 +300,11 @@ const Player: React.FC = () => {
               </div>
             </Col>
 
-         
+          <Col sm={12} md={12}>
+            <div className=" glass m-2 m-md-0 p-4">
+              <ChatRoom  handleTimeClick={handleTimeClick}/>
+            </div>
+          </Col>
           </Row>
         </Col>
         <Col className='my-2 my-md-4' sm={12} md={12}>
@@ -276,6 +313,7 @@ const Player: React.FC = () => {
           </div>
         </Col>
 
+     
 
 
 
