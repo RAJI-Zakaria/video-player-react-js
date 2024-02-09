@@ -8,17 +8,10 @@ import TimelineProgressBar from './TimelineProgressBar.tsx';
 import {getFilm} from '../../api/film.js'
 
 import LoadingAnimation from '../animation/LoadingAnimation.tsx';
-import MapParent from "./MapParent.tsx";
 import Tags from '../Tags/Tags.tsx';
 
-import {Film, Chapter, Keywords} from '../Types.tsx'
-
-interface Waypoint {
-    lat: string;
-    lng: string;
-    label: string;
-    timestamp?: string;
-}
+import {Film, Chapter, Keywords, Waypoint} from '../Types.tsx'
+import MapParent from "../Map/MapParent.tsx";
 
 const Player: React.FC = () => {
   const [loading, setLoading] = useState(true);
@@ -30,7 +23,9 @@ const Player: React.FC = () => {
   const [currentDurationOfVideo, setCurrentDurationOfVideo] = useState(0);
   const [currentMarker, setCurrentMarker] = useState(0);
   const [timelineMarkers, setTimelineMarkers] = useState<Array<Chapter>>([]);
-  
+
+  const initialPosition : Waypoint = { lat: "37.76491527993864", lng: "-96.57680039688972", label: "", timestamp: "0",zoom: 5};
+
   useEffect(()=>{
     const fetchFilm = async () => {
       setLoading(true);
@@ -40,7 +35,9 @@ const Player: React.FC = () => {
         if(film.ok){
           setFilm(film.data.Film)
           setTimelineMarkers(film.data.Chapters)
-          setWaypoints(film.data.Waypoints)
+          setWaypoints(film.data.Waypoints.map((waypoint: Waypoint) => {
+            return {...waypoint, zoom: 13}
+          }))
           setKeywords(film.data.Keywords)
         }else{
           alert('Error fetching Film')
@@ -199,6 +196,16 @@ const Player: React.FC = () => {
     }
   };
 
+  const onMarkerClick = (time: number) => {
+    if (videoRef.current) {
+      if (time <= durationOfVideo) {
+        // Set the video's current time
+        videoRef.current.currentTime = time;
+      } else {
+        alert("Time exceeds video duration or the video has not been loaded yet.");
+      }
+    }
+  }
  
   
   
@@ -265,7 +272,7 @@ const Player: React.FC = () => {
         </Col>
         <Col className='my-2 my-md-4' sm={12} md={12}>
           <div className=" glass m-2 m-md-0 p-4">
-            <MapParent waypointsProp={waypoints} currentDurationOfVideo={currentDurationOfVideo} />
+            <MapParent initialPosition={initialPosition} waypointsProp={waypoints} currentDurationOfVideo={currentDurationOfVideo}  onMarkerClick={onMarkerClick}/>
           </div>
         </Col>
 

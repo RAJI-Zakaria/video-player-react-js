@@ -31,15 +31,12 @@ export interface Waypoint {
   lng: string;
   label: string;
   timestamp: string;
+  zoom: number;
 }
 
-export interface MapParentProps {
+export interface MapProps {
   waypointsProp: Waypoint[],
-  currentDurationOfVideo: number
-}
-
-export interface WaypointChild {
-  lat: number;
-  lng: number;
-  label: string;
+  currentDurationOfVideo: number,
+  initialPosition: Waypoint,
+  onMarkerClick: (time: number) => void
 }
