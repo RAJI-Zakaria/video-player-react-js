@@ -1,7 +1,7 @@
 import './App.css'
 
 import { Container, Col, Row } from 'react-bootstrap';
-import Player from './components/Player/Player';
+import Player from './components/Player';
 
 function App() {
 
