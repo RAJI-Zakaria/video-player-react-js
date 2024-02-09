@@ -13,8 +13,10 @@ const ChatRoom: React.FC<{ handleTimeClick: (time: string) => void }> = ({ handl
     const [ws, setWs] = useState<WebSocket | null>(null);
     const [connected, setConnected] = useState<boolean>(false);
     const [messages, setMessages] = useState<Message[]>([]);
-    const [nameInput, setNameInput] = useState<string>('');
-    const [messageInput, setMessageInput] = useState<string>('');
+    //Big shout out for Abir work --> Ferhat as well
+    const [nameInput, setNameInput] = useState<string>('Abir');
+    //This line is used for one purpose which is to show the user the format of the time he should use while sending a message.
+    const [messageInput, setMessageInput] = useState<string>('Funniest part at 1:02 and 00:12:32');
 
     useEffect(() => {
       const URL = "wss://imr3-react.herokuapp.com";
