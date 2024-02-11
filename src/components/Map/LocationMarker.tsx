@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import {Marker, Popup, Tooltip, useMap, useMapEvents} from 'react-leaflet';
-import {MapProps, Waypoint} from "../Types.tsx";
+import {isWaypoint, MapProps, Waypoint, PopupOptionsChildren} from "../Types.tsx";
+
 
 function LocationMarker({ waypointsProp,currentDurationOfVideo,initialPosition, onMarkerClick }:MapProps) {
 
@@ -44,8 +45,8 @@ function LocationMarker({ waypointsProp,currentDurationOfVideo,initialPosition, 
 
     useMapEvents({
         popupopen(e) {
-            const clickedWaypoint = getWaypointByLabel(e.popup.options.children)
-            if (clickedWaypoint) {
+            const clickedWaypoint = getWaypointByLabel((e.popup.options as PopupOptionsChildren).children)
+            if (isWaypoint(clickedWaypoint)) {
                 onMarkerClick(parseInt(clickedWaypoint.timestamp))
                 map.flyTo({ lat: parseFloat(clickedWaypoint.lat), lng: parseFloat(clickedWaypoint.lng) }, clickedWaypoint.zoom);
             }else {

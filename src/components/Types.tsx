@@ -1,3 +1,5 @@
+import {PopupOptions} from "leaflet";
+
 export interface Film {
     file_url: string;
     synopsis_url: string;
@@ -39,4 +41,13 @@ export interface MapProps {
   currentDurationOfVideo: number,
   initialPosition: Waypoint,
   onMarkerClick: (time: number) => void
+}
+
+
+export interface PopupOptionsChildren extends PopupOptions{
+  children: string;
+}
+
+export const isWaypoint = (waypoint: Waypoint | boolean): waypoint is Waypoint => {
+  return Boolean(typeof waypoint === 'object' && waypoint.lat && waypoint.lng && waypoint.label && waypoint.timestamp && waypoint.zoom);
 }
