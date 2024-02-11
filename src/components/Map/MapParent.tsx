@@ -2,9 +2,7 @@ import LocationMarker from './LocationMarker.tsx';
 import {Container} from "react-bootstrap";
 import {MapContainer, TileLayer} from "react-leaflet";
 import {MapProps} from "../Types.tsx";
-
-
-
+import './index.css';
 
 const MapParent = ({ waypointsProp, currentDurationOfVideo,initialPosition, onMarkerClick }:MapProps) => {
 
@@ -18,7 +16,6 @@ const MapParent = ({ waypointsProp, currentDurationOfVideo,initialPosition, onMa
                     }}
                     zoom={5}
                     scrollWheelZoom={true}
-                    style={{ minHeight: '400px', minWidth: '600px' }}
                 >
                     <TileLayer
                         attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> redeemers'
