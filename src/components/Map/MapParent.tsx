@@ -8,7 +8,7 @@ const MapParent = ({ waypointsProp, currentDurationOfVideo,initialPosition, onMa
 
     return (
         <div>
-            <Container>
+            <Container className="p-0">
                 <MapContainer
                     center={{
                         lat: parseFloat(initialPosition.lat),
@@ -21,7 +21,6 @@ const MapParent = ({ waypointsProp, currentDurationOfVideo,initialPosition, onMa
                         attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> redeemers'
                         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                     />
-                    {/*<LocationMarker label={currentWaypoint.label}  lat={parseFloat(currentWaypoint.lat)} lng={parseFloat(currentWaypoint.lng)} />*/}
                     <LocationMarker initialPosition={initialPosition}  waypointsProp={waypointsProp} currentDurationOfVideo={currentDurationOfVideo} onMarkerClick={onMarkerClick}/>
                 </MapContainer>
             </Container>

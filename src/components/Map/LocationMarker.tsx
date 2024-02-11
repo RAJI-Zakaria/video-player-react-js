@@ -2,10 +2,6 @@ import { useEffect, useState } from 'react';
 import {Marker, Popup, Tooltip, useMap, useMapEvents} from 'react-leaflet';
 import {MapProps, Waypoint} from "../Types.tsx";
 
-
-
-
-
 function LocationMarker({ waypointsProp,currentDurationOfVideo,initialPosition, onMarkerClick }:MapProps) {
 
     const [lastCurrentWaypoint, setLastCurrentWaypoint] = useState(initialPosition)
@@ -59,7 +55,7 @@ function LocationMarker({ waypointsProp,currentDurationOfVideo,initialPosition, 
     })
 
 
-    const getWaypointByLabel = (label:string): Waypoint | Boolean => {
+    const getWaypointByLabel = (label:string): Waypoint | boolean => {
         const waypoint = waypointsProp.find(waypoint => waypoint.label === label)
         return waypoint ? waypoint : false
     }

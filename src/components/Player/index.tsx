@@ -308,7 +308,7 @@ const Player: React.FC = () => {
           </Row>
         </Col>
         <Col className='my-2 my-md-4' sm={12} md={12}>
-          <div className=" glass m-2 m-md-0 p-4">
+          <div className=" glass m-2 m-md-0 p-3">
             <MapParent initialPosition={initialPosition} waypointsProp={waypoints} currentDurationOfVideo={currentDurationOfVideo}  onMarkerClick={onMarkerClick}/>
           </div>
         </Col>
