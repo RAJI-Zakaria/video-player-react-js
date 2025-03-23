@@ -1,4 +1,6 @@
 .chat-room-history {
-    height: 200px;
-    overflow: scroll;
+  border-radius: 5px;
+  margin-bottom: 5px;
+  max-height: 200px;
+  overflow-y: scroll;
 }

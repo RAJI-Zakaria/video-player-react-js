@@ -1,11 +1,14 @@
 {
   "development": {
-    "API_URL": "http://localhost:3000"
+    "API_URL": "http://localhost:3000",
+    "WSS_URL": "wss://localhost:3000"
   },
   "production": {
-    "API_URL": "http://localhost:3000"
+    "API_URL": "http://localhost:3000",
+    "WSS_URL": "wss://localhost:3000"
   },
   "test": {
-    "API_URL": "http://localhost:3000"
+    "API_URL": "http://localhost:3000",
+    "WSS_URL": "wss://localhost:3000"
   }
 }
