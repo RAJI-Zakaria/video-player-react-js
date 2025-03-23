@@ -1,11 +1,11 @@
 {
-    "development": {
-        "API_URL": "https://imr3-react.herokuapp.com"
-    },
-    "production": {
-        "API_URL": "https://imr3-react.herokuapp.com"
-    },
-    "test": {
-        "API_URL": "https://imr3-react.herokuapp.com"
-    }
+  "development": {
+    "API_URL": "http://localhost:3000"
+  },
+  "production": {
+    "API_URL": "http://localhost:3000"
+  },
+  "test": {
+    "API_URL": "http://localhost:3000"
   }
+}
